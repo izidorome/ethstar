@@ -12,6 +12,9 @@
  *   },
  */
 
+var HDWalletProvider = require('truffle-hdwallet-provider');
+
+var mnemonic = 'arena steak clay always annual travel awkward wood rude heart omit wagon';
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
   // to customize your Truffle configuration!
@@ -20,6 +23,14 @@ module.exports = {
       host: "127.0.0.1",
       port: 8545,
       network_id: "*"
+    },
+    rinkeby: {
+      provider: function() {
+        return new HDWalletProvider(mnemonic, 'https://rinkeby.infura.io/v3/5bd3c96bf68d406e86823288ae030026');
+      },
+      network_id: 4,
+      gas: 4500000,
+      gasPrice: 10000000000,
     }
   }
 };

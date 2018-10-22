@@ -1,6 +1,6 @@
-let StarExchange = artifacts.require("StarExchange");
+let StarNotary = artifacts.require("StarNotary");
 
-contract("StarExchange", async (accounts) => {
+contract("StarNotary", async (accounts) => {
   let instance;
   let star1Id;
   let star2Id;
@@ -14,15 +14,18 @@ contract("StarExchange", async (accounts) => {
   let price = web3.toWei(.01, "ether");
 
   beforeEach(async () => {
-    instance = await StarExchange.new();
+    instance = await StarNotary.new();
     await instance.createStar('Story Star', dec, mag, cen, {from: rafa});
     star1Id = 1;
+
+    await instance.createStar('Story Star', dec, mag, 'cen_10', {from: rafa});
+    star2Id = 2;
   });
 
  describe("putStarUpForSale", async () => {
    it("should put star for sale at specified price", async () => {
      await instance.putStarUpForSale(star1Id, price, { from: rafa });
-     let sale = await instance.starsForSale(star1Id);
+     let sale = await instance.tokenIdToPrice(star1Id);
 
      assert.equal(sale, price);
    });
@@ -44,7 +47,7 @@ contract("StarExchange", async (accounts) => {
   it("should return the stars price", async () => {
     await instance.putStarUpForSale(star1Id, price, { from: rafa });
 
-    let starPrice = await instance.starsForSale(star1Id);
+    let starPrice = await instance.tokenIdToPrice(star1Id);
 
     assert.equal(price, starPrice);
   });
@@ -53,6 +56,7 @@ contract("StarExchange", async (accounts) => {
  describe("buyStar", async () => {
    beforeEach( async () => {
      await instance.putStarUpForSale(star1Id, price, { from: rafa });
+     await instance.putStarUpForSale(star2Id, price, { from: rafa });
    });
 
    it("should allow vitalik to buy rafa star for requested price", async () => {
@@ -75,7 +79,17 @@ contract("StarExchange", async (accounts) => {
    it("should delete star from exchange", async () => {
     await instance.buyStar(star1Id, {from: vitalik, value: price, gasPrice: 0});
 
-    assert.equal(await instance.starsForSale(star1Id), 0);
+    let found = false;
+    let forSale = await instance.starsForSale();
+
+    for(let tokenId of forSale) {
+      if (tokenId == star1Id) {
+        found = true;
+      }
+    }
+
+    assert.equal(found, false);
+    assert.equal(await instance.tokenIdToPrice(star1Id), 0);
    });
  });
 });

@@ -18,3 +18,8 @@ button {
     padding: 1em 4em;
     display:block;
 }
+
+td {
+    border: 1px solid;
+    padding: 2px;
+}

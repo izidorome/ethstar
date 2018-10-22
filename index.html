@@ -17,37 +17,37 @@
   <div class="container">
     <h1>Claim your star</h1>
 
-      <div class="row">
-        <label class="bold" for="star-dec-input">Dec:</label>
-        <input type="number" id="star-dec-input" />
-      </div>
+    <div class="row">
+      <label class="bold" for="star-dec-input">Dec:</label>
+      <input type="text" id="star-dec-input" />
+    </div>
 
-      <div class="row">
-        <label class="bold" for="star-mag-input">Mag:</label>
-        <input type="number" id="star-mag-input" />
-      </div>
+    <div class="row">
+      <label class="bold" for="star-mag-input">Mag:</label>
+      <input type="text" id="star-mag-input" />
+    </div>
 
-      <div class="row">
-        <label class="bold" for="star-cen-input">Cen:</label>
-        <input type="number" id="star-cen-input" />
-      </div>
+    <div class="row">
+      <label class="bold" for="star-cen-input">Cen:</label>
+      <input type="text" id="star-cen-input" />
+    </div>
 
-      <div class="row">
-        <label class="bold" for="star-story-input">Story:</label>
-        <input type="text" id="star-story-input" />
-      </div>
+    <div class="row">
+      <label class="bold" for="star-story-input">Story:</label>
+      <input type="text" id="star-story-input" />
+    </div>
 
-      <button id="claim-button" onclick="claimButtonClicked()">Claim Star</button>
+    <button id="claim-button" onclick="claimButtonClicked()">Claim Star</button>
   </div>
+
   <div class="container">
     <h1>Find a Star</h1>
 
     <div class="row">
-      <label for="star-id">TokenID
+      <label for="star-id">StarID
         <input type="text" id="star-id" />
       </label>
     </div>
-
 
     <div class="row">
       <label class="bold">Star Name:</label>
@@ -59,11 +59,47 @@
       <label id="star-story"></label>
     </div>
 
-    <button id="searc-button" onclick="searchButtonClicked()">Search</button>
+    <div class="row">
+      <label class="bold">DEC:</label>
+      <label id="star-dec"></label>
+    </div>
+
+    <div class="row">
+      <label class="bold">MAG:</label>
+      <label id="star-mag"></label>
+    </div>
+
+    <div class="row">
+      <label class="bold">CEN:</label>
+      <label id="star-cen"></label>
+    </div>
+
+    <button id="search-button" onclick="searchButtonClicked()">Search</button>
   </div>
 
-  <script>
+  <div class="container">
+    <h1>Sell a Star</h1>
 
-  </script>
+    <div class="row">
+      <label for="sell-star-id">StarID
+        <input type="text" id="sell-star-id" />
+      </label>
+    </div>
+
+    <div class="row">
+      <label for="sell-star-id">Price
+        <input type="text" id="price-id" placeholder="In ETH" />
+      </label>
+    </div>
+
+    <button id="sell-button" onclick="sellButtonClicked()">Sell</button>
+  </div>
+
+  <div class="container">
+    <h1>Stars for Sale</h1>
+    <table id="stars-for-sale">
+    </table>
+  </div>
+
 </body>
 </html>

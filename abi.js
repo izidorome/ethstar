@@ -1,4 +1,4 @@
-let abi = [
+abi = [
   {
     "constant": true,
     "inputs": [
@@ -22,15 +22,15 @@ let abi = [
     "constant": true,
     "inputs": [
       {
-        "name": "_ra",
-        "type": "string"
-      },
-      {
         "name": "_dec",
         "type": "string"
       },
       {
         "name": "_mag",
+        "type": "string"
+      },
+      {
+        "name": "_cen",
         "type": "string"
       }
     ],
@@ -39,25 +39,6 @@ let abi = [
       {
         "name": "",
         "type": "bool"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "starsForSale",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
       }
     ],
     "payable": false,
@@ -211,15 +192,15 @@ let abi = [
         "type": "string"
       },
       {
-        "name": "_ra",
-        "type": "string"
-      },
-      {
         "name": "_dec",
         "type": "string"
       },
       {
         "name": "_mag",
+        "type": "string"
+      },
+      {
+        "name": "_cen",
         "type": "string"
       }
     ],
@@ -268,15 +249,15 @@ let abi = [
         "type": "string"
       },
       {
-        "name": "ra",
-        "type": "string"
-      },
-      {
         "name": "dec",
         "type": "string"
       },
       {
         "name": "mag",
+        "type": "string"
+      },
+      {
+        "name": "cen",
         "type": "string"
       }
     ],
@@ -422,6 +403,25 @@ let abi = [
     "type": "function"
   },
   {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "tokenIdToPrice",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "anonymous": false,
     "inputs": [
       {
@@ -535,5 +535,19 @@ let abi = [
     "payable": true,
     "stateMutability": "payable",
     "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "starsForSale",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256[]"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   }
-]
+];
