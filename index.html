@@ -1,35 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Star Notary</title>
-        <link rel="stylesheet" type="text/css" href="style.css">
 
-        <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
-        <script src="/abi.js"></script>
-        <script src="/eth.js"></script>
-    </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Star Notary</title>
 
-    <body>
-        <div class="container">
-            <h1>Star Notary</h1>
+  <link rel="stylesheet" type="text/css" href="style.css">
 
-            <div class="row">
-                <label class="bold">Star Name:</label>
-                <label id="star-name"></label>
-            </div>
+  <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+  <script src="/abi.js"></script>
+  <script src="/eth.js"></script>
+</head>
 
-            <div class="row">
-                <label class="bold">Star Owner:</label>
-                <label id="star-owner"></label>
-            </div>
+<body>
+  <div class="container">
+    <h1>Claim your star</h1>
 
-            <button id="claim-button" onclick="claimButtonClicked()">Claim Star</button>
-        </div>
+      <div class="row">
+        <label class="bold" for="star-dec-input">Dec:</label>
+        <input type="number" id="star-dec-input" />
+      </div>
 
-        <script>
+      <div class="row">
+        <label class="bold" for="star-mag-input">Mag:</label>
+        <input type="number" id="star-mag-input" />
+      </div>
 
-        </script>
-    </body>
+      <div class="row">
+        <label class="bold" for="star-cen-input">Cen:</label>
+        <input type="number" id="star-cen-input" />
+      </div>
+
+      <div class="row">
+        <label class="bold" for="star-story-input">Story:</label>
+        <input type="text" id="star-story-input" />
+      </div>
+
+      <button id="claim-button" onclick="claimButtonClicked()">Claim Star</button>
+  </div>
+  <div class="container">
+    <h1>Find a Star</h1>
+
+    <div class="row">
+      <label for="star-id">TokenID
+        <input type="text" id="star-id" />
+      </label>
+    </div>
+
+
+    <div class="row">
+      <label class="bold">Star Name:</label>
+      <label id="star-name"></label>
+    </div>
+
+    <div class="row">
+      <label class="bold">Star Story:</label>
+      <label id="star-story"></label>
+    </div>
+
+    <button id="searc-button" onclick="searchButtonClicked()">Search</button>
+  </div>
+
+  <script>
+
+  </script>
+</body>
 </html>
