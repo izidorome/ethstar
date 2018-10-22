@@ -8,18 +8,15 @@ contract("StarExchange", async (accounts) => {
   let rafa = accounts[1];
   let vitalik = accounts[2];
   let satoshi = accounts[3];
-  let ra = 'ra_032.155';
   let dec = 'dec_121.874';
   let mag = 'mag_245.978';
+  let cen = 'cen_32';
   let price = web3.toWei(.01, "ether");
 
   beforeEach(async () => {
     instance = await StarExchange.new();
-    await instance.createStar('First Star', 'Story Star', ra, dec, mag, { from: rafa });
+    await instance.createStar('Story Star', dec, mag, cen, {from: rafa});
     star1Id = 1;
-
-    let id2 = await instance.createStar('Second Star', 'Story Star', 'ra_1234', dec, mag, { from: satoshi });
-    star2Id = 2;
   });
 
  describe("putStarUpForSale", async () => {
@@ -73,6 +70,12 @@ contract("StarExchange", async (accounts) => {
     const balanceAfterTransaction = web3.eth.getBalance(vitalik);
 
     assert.equal(balanceBeforeTransaction.sub(balanceAfterTransaction), price);
+   });
+
+   it("should delete star from exchange", async () => {
+    await instance.buyStar(star1Id, {from: vitalik, value: price, gasPrice: 0});
+
+    assert.equal(await instance.starsForSale(star1Id), 0);
    });
  });
 });
