@@ -8,19 +8,28 @@ if (typeof web3 != 'undefined') {
 }
 
 window.onload = () => {
-  web3.eth.getAccounts(function (error, accounts) {
-    if (error) {
-      console.log(error)
-      return
-    }
+  if (web3.isConnected()) {
+    web3.eth.getAccounts(function (error, accounts) {
+      if (error) {
+        console.log(error)
+        return
+      }
 
-    web3.eth.defaultAccount = web3.eth.accounts[0];
-    window.contract = web3.eth.contract(abi).at(ContractAddress);
-    updateStarsForSale();
-  });
+      web3.eth.defaultAccount = web3.eth.accounts[0];
+      window.contract = web3.eth.contract(abi).at(ContractAddress);
+      updateStarsForSale();
+    });
+  } else {
+    document.body.innerHTML = "Could not connect to the provider. Try installing Metamask e reload this page.";
+  }
 };
 
 function claimButtonClicked() {
+  if (!web3.eth.defaultAccount) {
+    alert("You should have an active account");
+    return false;
+  }
+
   let starDec = document.getElementById("star-dec-input").value;
   let starMag = document.getElementById("star-mag-input").value;
   let starCen = document.getElementById("star-cen-input").value;
@@ -59,6 +68,11 @@ function searchButtonClicked() {
 }
 
 function sellButtonClicked() {
+  if (!web3.eth.defaultAccount) {
+    alert("You should have an active account");
+    return false;
+  }
+
   let starId = document.getElementById("sell-star-id").value;
   let price = document.getElementById("price-id").value;
 
@@ -89,7 +103,7 @@ function updateStarsForSale() {
       row += "</tr>";
       document.getElementById("stars-for-sale").innerHTML += row;
 
-      for (starId of result) {
+      for (let starId of result) {
         window.contract.tokenIdToStarInfo(parseInt(starId), (error, result) => {
           if (!error) {
             window.contract.tokenIdToPrice(parseInt(starId), (error, price) => {
