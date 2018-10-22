@@ -6,31 +6,30 @@ contract("StarBase", async (accounts) => {
   let rafa = accounts[1];
   let vitalik = accounts[2];
   let satoshi = accounts[3];
-  let ra = 'ra_032.155';
   let dec = 'dec_121.874';
   let mag = 'mag_245.978';
+  let cen = 'cen_32';
 
   beforeEach(async () => {
     instance = await StarBase.new();
-      await instance.createStar('First Star', 'Story Star', ra, dec, mag, {from: rafa});
+      await instance.createStar('Story Star', dec, mag, cen, {from: rafa});
   });
 
   describe("createStar", async () => {
     it('should save star with valid data', async () => {
       let star = await instance.stars(0);
 
-      assert.equal(star[0], 'First Star');
-      assert.equal(star[1], 'Story Star');
-      assert.equal(star[2], ra);
-      assert.equal(star[3], dec);
-      assert.equal(star[4], mag);
+      assert.equal(star[0], 'Story Star');
+      assert.equal(star[1], dec);
+      assert.equal(star[2], mag);
+      assert.equal(star[3], cen);
     });
 
     it('should not allow already registered star', async () => {
       let error = { message: '' }
 
       try {
-        await instance.createStar('First Star', 'Story Star', ra, dec, mag, {from: vitalik});
+        await instance.createStar('Story Star', dec, mag, cen, {from: vitalik});
       } catch(err) {
         error = err;
       }
@@ -41,13 +40,13 @@ contract("StarBase", async (accounts) => {
 
   describe("checkIfStarExist", async () => {
     it('should return true if star already registered', async () => {
-      let exists = await instance.checkIfStarExist(ra, dec, mag);
+      let exists = await instance.checkIfStarExist(dec, mag, cen);
 
       assert.equal(exists, true);
     });
 
     it('should return false if star does not exists', async () => {
-      let exists = await instance.checkIfStarExist('ra_000', dec, mag);
+      let exists = await instance.checkIfStarExist(dec, mag, '123');
 
       assert.equal(exists, false);
     });
@@ -57,11 +56,11 @@ contract("StarBase", async (accounts) => {
     it("should return star info data", async () => {
       let star = await instance.tokenIdToStarInfo(1);
 
-      assert.equal(star[0], 'First Star');
+      assert.equal(star[0], 'Star Power #1');
       assert.equal(star[1], 'Story Star');
-      assert.equal(star[2], ra);
-      assert.equal(star[3], dec);
-      assert.equal(star[4], mag);
+      assert.equal(star[2], dec);
+      assert.equal(star[3], mag);
+      assert.equal(star[4], cen);
     });
   });
 

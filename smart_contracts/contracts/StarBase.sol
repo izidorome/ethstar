@@ -6,23 +6,22 @@ import "./Utils.sol";
 
 contract StarBase is ERC721, Utils, Ownable {
   struct Star {
-    string name;
     string story;
-    string ra;
     string dec;
     string mag;
+    string cen;
   }
 
   Star[] public stars;
 
   mapping(bytes32 => uint) hashToTokenId;
 
-  function createStar(string _name, string _story, string _ra, string _dec, string _mag) external returns (uint) {
-    bytes32 starHash = keccak256(abi.encodePacked(_ra, _dec, _mag));
+  function createStar(string _story, string _dec, string _mag, string _cen) external returns (uint) {
+    bytes32 starHash = keccak256(abi.encodePacked(_dec, _mag, _cen));
 
     require(hashToTokenId[starHash] == 0, "Star already registered");
 
-    Star memory star = Star(_name, _story, _ra, _dec, _mag);
+    Star memory star = Star(_story, _dec, _mag, _cen);
     uint starId = stars.push(star);
 
     hashToTokenId[starHash] = starId;
@@ -31,8 +30,8 @@ contract StarBase is ERC721, Utils, Ownable {
     return starId;
   }
 
-  function checkIfStarExist(string _ra, string _dec, string _mag) external view returns (bool) {
-    bytes32 starHash = keccak256(abi.encodePacked(_ra, _dec, _mag));
+  function checkIfStarExist(string _dec, string _mag, string _cen) external view returns (bool) {
+    bytes32 starHash = keccak256(abi.encodePacked(_dec, _mag, _cen));
 
     return hashToTokenId[starHash] > 0;
   }
@@ -42,7 +41,9 @@ contract StarBase is ERC721, Utils, Ownable {
 
     Star memory star = stars[_tokenId - 1];
 
-    return (star.name, star.story, star.ra, star.dec, star.mag);
+    string memory name = strConcat("Star Power #", uint2str(_tokenId));
+
+    return (name, star.story, star.dec, star.mag, star.cen);
   }
 
   function mint(address _to, uint _tokenId) public onlyOwner returns (bool) {
