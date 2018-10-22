@@ -16,10 +16,10 @@ app.get('/', (req, res) => {
 });
 
 app.get('/star/:starId', async (req, res) => {
-  let star;
+  let star = {};
 
   try {
-    star = await contract.methods.tokenIdToStarInfo(1).call();
+    star = await contract.methods.tokenIdToStarInfo(req.params.starId).call();
   } catch (err) {
     console.log(err);
   }

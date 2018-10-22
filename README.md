@@ -29,6 +29,10 @@ This will open the code on port 8080
 On the frontend client application, you can create a star, put it for sale and see the current stars for sale.
 PS: Do not forget to point Metamask to the Rinkeby network.
 
+# API
+
+With the server running, go to `/star/:starID` to get a json response of star info.
+
 # Running tests
 
 To run the tests, you should `npm test` at the `smart_contracts` path.
